@@ -1,13 +1,7 @@
 /**
  * 
- *  MapReduce Temperature Data Example
+ *  MapReduce Word Count Example
  *  
- *  Summary
- *  
- *  This is the Java MapReduce example taken from *'Hadoop The Definitive Guide 4th Edition' - Part 1 - Chapter 2.*
- *  
- *  The example uses Mapreduce framework to find the highest temperatures recorded per year from NCDC data files.
- *
  * Unix Version
  *
  * An example of the same Map/Reduce logic using unix command line tools is in the MapReduce_UnixTools directory (see the README file in that directory for details).

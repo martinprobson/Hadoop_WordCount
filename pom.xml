@@ -3,15 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gmail.martinprobson.hadoop</groupId>
-	<artifactId>MapReduce_Temperature_Example</artifactId>
+	<artifactId>Hadoop_WordCount_Example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Hadoop Map Reduce Example - Temperature data</name>
-	<description>This is the Java MapReduce example taken from 'Hadoop The Definitive Guide 4th Edition' - Part 1 - Chapter 2
-The example uses Mapreduce framework to find the highest temperatures recorded per year from NCDC data files.
+	<name>Hadoop Map Reduce Example - Word Count</name>
+	<description>Simple Hadoop Map Reduce word count.
+The example uses standard Hadoop Mapreduce framework perform a word count.
 This POM has two exec goals: -
 exec:exec@run-local - Run the map reduce code in local mode.
 exec:exec@run-cluster - Run the map reduce code on cluster.
-
 </description>
 	<packaging>jar</packaging>
 	<properties>
@@ -25,9 +24,9 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 		<!-- HDFS directory for output results -->
 		<hdfs.output.dir>/user/martinr/ncdc_output</hdfs.output.dir>
 		<!-- Local filesystem  directory containing input file(s) -->
-		<local.input.dir>${project.basedir}/data/ncdc</local.input.dir>
+		<local.input.dir>${project.basedir}/data</local.input.dir>
 		<!-- Local filesystem  directory for output results -->
-		<local.output.dir>${project.basedir}/ncdc_output</local.output.dir>
+		<local.output.dir>${project.basedir}/output</local.output.dir>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -53,6 +52,17 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 			<artifactId>hadoop-minicluster</artifactId>
 			<version>${hadoop.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.gmail.martinprobson</groupId>
+			<artifactId>Hadoop_Util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -107,7 +117,7 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 							<arguments>
 								<argument>jar</argument>
 								<argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
-								<argument>com.gmail.martinprobson.hadoop.mr.MaxTemperatureDriver</argument>
+								<argument>com.gmail.martinprobson.hadoop.mr.WordCountDriver</argument>
 								<argument>${hdfs.input.dir}</argument>
 								<argument>${hdfs.output.dir}</argument>
 							</arguments>
@@ -127,7 +137,7 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 							<arguments>
 								<argument>--config</argument>
 								<argument>${project.basedir}/src/test/resources</argument>
-								<argument>com.gmail.martinprobson.hadoop.mr.MaxTemperatureDriver</argument>
+								<argument>com.gmail.martinprobson.hadoop.mr.WordCountDriver</argument>
 								<argument>${local.input.dir}</argument>
 								<argument>${local.output.dir}</argument>
 							</arguments>

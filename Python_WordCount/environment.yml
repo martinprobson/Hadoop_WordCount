@@ -1,0 +1,5 @@
+name: Python_WordCount
+channels:
+- defaults
+dependencies:
+- python=3.6
