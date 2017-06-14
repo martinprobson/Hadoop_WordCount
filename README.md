@@ -4,9 +4,9 @@
 
 This a the Java MapReduce Word Count example.
 
-## Unix Version
+## Python Version
 
-An example of the same Map/Reduce logic using unix command line tools is in the MapReduce_UnixTools directory (see the README file in that directory for details).
+An example of the same Map/Reduce logic using Python locally is in the MapReduce_UnixTools directory (see the README file in that directory for details).
 
 ## Java Version
 
