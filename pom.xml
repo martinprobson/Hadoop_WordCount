@@ -68,6 +68,30 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 	<build>
 		<plugins>
 			<plugin>
+				<!-- Copy the Hadoop Utils jar into target directory for execution purposes -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.gmail.martinprobson</groupId>
+									<artifactId>Hadoop_Util</artifactId>
+									<version>0.0.1-SNAPSHOT</version>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+								</artifactItem>			
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -122,7 +146,7 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 								<argument>${hdfs.output.dir}</argument>
 							</arguments>
 							<environmentVariables>
-								<!-- <YARN_USER_CLASSPATH>${user.home}:${resource_dir}:/usr/hdp/current/hive-client/lib/hive-jdbc.jar</YARN_USER_CLASSPATH> -->
+								<YARN_USER_CLASSPATH>${project.build.directory}/*</YARN_USER_CLASSPATH> 
 								<!-- <YARN_USER_CLASSPATH_FIRST>Yes</YARN_USER_CLASSPATH_FIRST> -->
 							</environmentVariables>
 						</configuration>
@@ -142,7 +166,7 @@ exec:exec@run-cluster - Run the map reduce code on cluster.
 								<argument>${local.output.dir}</argument>
 							</arguments>
 							<environmentVariables>
-							    <HADOOP_CLASSPATH>${project.build.directory}/test-classes/log4j.properties:${project.build.directory}/${project.artifactId}-${project.version}.jar</HADOOP_CLASSPATH>
+								<HADOOP_CLASSPATH>${project.build.directory}/test-classes/log4j.properties:${project.build.directory}/${project.artifactId}-${project.version}.jar:${project.build.directory}/*</HADOOP_CLASSPATH>
 							</environmentVariables>
 						</configuration>
 					</execution>
